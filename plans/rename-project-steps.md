@@ -1,0 +1,73 @@
+# Steps to rename the project and root folder to **IAChatExporter**
+
+## Overview
+This document outlines the exact commands and actions needed to rename the repository folder, update internal references, and commit the changes. Follow the steps sequentially; you can close your editor after creating this file and resume later.
+
+---
+
+## 1️⃣ Prepare the environment
+```powershell
+# Navigate to the parent directory that contains the project folder
+cd D:\Desarrollo\RepoGit\github
+```
+- Ensure no editor or terminal is locking the folder.
+- Make sure Git is configured (user.name, user.email).
+
+## 2️⃣ Rename the root folder
+```powershell
+Rename-Item -Path .\chatiasave-extension -NewName IAChatExporter
+```
+> This moves the whole project, including the hidden `.git` directory, to `IAChatExporter`.
+
+## 3️⃣ Change to the new folder
+```powershell
+cd IAChatExporter
+```
+
+## 4️⃣ Update internal references
+Run a search‑and‑replace on all relevant source files (markdown, JSON, JS, HTML, CSS) to replace the old project name.
+```powershell
+Get-ChildItem -Recurse -Include *.md, *.json, *.js, *.html, *.css |
+    ForEach-Object {
+        (Get-Content $_.FullName) -replace 'ChatIASave', 'IAChatExporter' |
+            Set-Content $_.FullName
+    }
+```
+- Verify the changes manually if you prefer.
+
+## 5️⃣ Verify Git status
+```powershell
+git status
+```
+You should see a list of modified files.
+
+## 6️⃣ Commit the rename
+```powershell
+git add -A
+git commit -m "Rename project: chatiasave‑extension → IAChatExporter (folder & internal references)"
+```
+
+## 7️⃣ (Optional) Update remote URL after creating the GitHub repo
+```powershell
+git remote set-url origin https://github.com/<YOUR_USERNAME>/IAChatExporter.git
+```
+Replace `<YOUR_USERNAME>` with your GitHub handle.
+
+## 8️⃣ Verify everything works
+- Load the unpacked extension from the new folder in Chrome/Firefox.
+- Run `git log` to confirm the commit is recorded.
+
+---
+
+# ✅ Checklist
+- [ ] Navigate to parent directory
+- [ ] Rename folder to `IAChatExporter`
+- [ ] `cd` into the new folder
+- [ ] Replace all occurrences of `ChatIASave` with `IAChatExporter`
+- [ ] Run `git status` and confirm modifications
+- [ ] Commit the changes
+- [ ] (Optional) Update remote URL on GitHub
+- [ ] Test the extension locally
+- [ ] Close editor and resume later
+
+*File created in `plans/rename-project-steps.md`*
