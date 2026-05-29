@@ -11,3 +11,13 @@ Thumbs.db
 *.njsproj
 *.sln
 *.sw?
+
+#node
+node_modules/
+dist/ 
+*.log
+
+#Build artefacts
+*.zip
+*.crx
+"@
