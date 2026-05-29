@@ -1,0 +1,55 @@
+<!--
+  popup.html
+  
+  Define la interfaz del popup de la extensión. Se requiere esta UI minimalista y premium
+  para permitir al usuario interactuar de forma intuitiva, permitiéndole ver qué plataforma
+  se ha detectado, agregar etiquetas personalizadas al frontmatter YAML opcionalmente, e
+  iniciar la exportación del chat actual con un solo clic.
+-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>ChatIASave</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="card">
+    <div class="header">
+      <div class="logo-area">
+        <span class="logo-emoji">💾</span>
+        <h1 class="title">ChatIA<span class="highlight">Save</span></h1>
+      </div>
+      <span class="version">v0.1.0</span>
+    </div>
+
+    <div class="content">
+      <!-- Indicador visual del LLM detectado actualmente -->
+      <div class="status-box" id="statusBox">
+        <span class="status-dot animate-pulse"></span>
+        <span class="status-text" id="statusText">Detectando plataforma...</span>
+      </div>
+
+      <!-- Opciones del Frontmatter para el usuario -->
+      <div class="form-group">
+        <label for="tagsInput" class="form-label">Etiquetas (separadas por comas)</label>
+        <input type="text" id="tagsInput" class="form-input" placeholder="ej. programacion, ideas, borrador">
+      </div>
+
+      <!-- Botón de acción principal con gradiente e interacción -->
+      <button class="btn-export" id="btnExport" disabled>
+        <span class="btn-text">Exportar a Markdown</span>
+        <span class="btn-icon">⚡</span>
+      </button>
+    </div>
+
+    <div class="footer">
+      <p class="footer-note">Exportado local y privado</p>
+    </div>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>
