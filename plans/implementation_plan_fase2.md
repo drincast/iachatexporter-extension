@@ -1,4 +1,4 @@
-# Plan de Implementación — ChatIASave: Fases 1 & 2
+# Plan de Implementación — IAChatExporter: Fases 1 & 2
 
 Este plan cubre la inicialización de Git, el desarrollo del parser específico de Gemini, la lógica común de parseo, el convertidor a Markdown, la comunicación en la extensión y el flujo de descarga.
 
@@ -15,48 +15,48 @@ Este plan cubre la inicialización de Git, el desarrollo del parser específico 
 
 ### 1. Inicialización del Repositorio Git
 
-#### [NEW] [.gitignore](file:///d:/Desarrollo/RepoGit/github/chatiasave-extension/.gitignore)
+#### [NEW] [.gitignore](file:///d:/Desarrollo/RepoGit/github/IAChatExporter-extension/.gitignore)
 - Ignorar archivos del sistema (`.DS_Store`, `Thumbs.db`) y carpetas temporales.
 
 ---
 
 ### 2. Extensión y Comunicación (Service Worker y Popup)
 
-#### [MODIFY] [manifest.json](file:///d:/Desarrollo/RepoGit/github/chatiasave-extension/manifest.json)
+#### [MODIFY] [manifest.json](file:///d:/Desarrollo/RepoGit/github/IAChatExporter-extension/manifest.json)
 - Nos aseguraremos de que todos los permisos e inyecciones de scripts están correctos.
 
-#### [MODIFY] [background.js](file:///d:/Desarrollo/RepoGit/github/chatiasave-extension/background.js)
+#### [MODIFY] [background.js](file:///d:/Desarrollo/RepoGit/github/IAChatExporter-extension/background.js)
 - Escuchar solicitudes del script de contenido para descargar el archivo Markdown generado.
 - Usar `chrome.downloads.download` para iniciar la descarga.
 
-#### [MODIFY] [popup.html](file:///d:/Desarrollo/RepoGit/github/chatiasave-extension/popup/popup.html)
+#### [MODIFY] [popup.html](file:///d:/Desarrollo/RepoGit/github/IAChatExporter-extension/popup/popup.html)
 - Diseñar una interfaz mínima y moderna (acorde a las directrices visuales premium, usando variables CSS y un layout limpio) con un botón para iniciar la exportación.
 
-#### [MODIFY] [popup.js](file:///d:/Desarrollo/RepoGit/github/chatiasave-extension/popup/popup.js)
+#### [MODIFY] [popup.js](file:///d:/Desarrollo/RepoGit/github/IAChatExporter-extension/popup/popup.js)
 - Enviar un mensaje (`chrome.tabs.sendMessage`) al script de contenido de la pestaña activa para solicitar la exportación.
 
-#### [MODIFY] [popup.css](file:///d:/Desarrollo/RepoGit/github/chatiasave-extension/popup/popup.css)
+#### [MODIFY] [popup.css](file:///d:/Desarrollo/RepoGit/github/IAChatExporter-extension/popup/popup.css)
 - Estilos modernos, uso de variables de color (paleta violeta/azul agradable) y transiciones suaves para hover en los botones.
 
 ---
 
 ### 3. Scripts de Contenido y Lógica de Parseo
 
-#### [MODIFY] [content.js](file:///d:/Desarrollo/RepoGit/github/chatiasave-extension/content/content.js)
+#### [MODIFY] [content.js](file:///d:/Desarrollo/RepoGit/github/IAChatExporter-extension/content/content.js)
 - Escuchar el mensaje enviado por el popup.
 - Identificar en qué plataforma estamos basándonos en la URL (`window.location.hostname`).
 - Invocar el parser de la plataforma correspondiente (ej. `parseGeminiChat()`).
 - Pasar el resultado por el formateador y enviar el string final Markdown al Service Worker para su descarga.
 
-#### [MODIFY] [parser.js](file:///d:/Desarrollo/RepoGit/github/chatiasave-extension/content/parser.js)
+#### [MODIFY] [parser.js](file:///d:/Desarrollo/RepoGit/github/IAChatExporter-extension/content/parser.js)
 - Definir una interfaz/estructura unificada del objeto de conversación para todos los LLMs.
 - Estructura: `{ title: string, date: string, source: string, messages: Array<{ author: 'user'|'ai', text: string, html: HTMLElement }> }`
 
-#### [MODIFY] [exporter.js](file:///d:/Desarrollo/RepoGit/github/chatiasave-extension/content/exporter.js)
+#### [MODIFY] [exporter.js](file:///d:/Desarrollo/RepoGit/github/IAChatExporter-extension/content/exporter.js)
 - Implementar la función `exportToMarkdown(chatData)` que genera el frontmatter YAML y el cuerpo.
 - Implementar una función `convertHtmlToMarkdown(htmlElement)` para procesar el DOM de los mensajes y generar un Markdown limpio (manejando listas, bloques de código, textos enriquecidos y saltos de línea).
 
-#### [MODIFY] [gemini.js](file:///d:/Desarrollo/RepoGit/github/chatiasave-extension/parsers/gemini.js)
+#### [MODIFY] [gemini.js](file:///d:/Desarrollo/RepoGit/github/IAChatExporter-extension/parsers/gemini.js)
 - Implementar `parseGeminiChat()` usando selectores DOM actuales:
   - Mensajes de usuario: se extraen del tag `<user-query>`.
   - Respuestas del asistente: se extraen del tag `<model-response>`.

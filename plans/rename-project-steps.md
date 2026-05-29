@@ -15,22 +15,34 @@ cd D:\Desarrollo\RepoGit\github
 
 ## 2️⃣ Rename the root folder
 ```powershell
-Rename-Item -Path .\chatiasave-extension -NewName IAChatExporter
+Rename-Item -Path .\chatiasave-extension -NewName iachatexporter-extension
 ```
-> This moves the whole project, including the hidden `.git` directory, to `IAChatExporter`.
+> This moves the whole project, including the hidden `.git` directory, to `iachatexporter-extension`.
 
 ## 3️⃣ Change to the new folder
 ```powershell
-cd IAChatExporter
+cd iachatexporter-extension
 ```
 
 ## 4️⃣ Update internal references
 Run a search‑and‑replace on all relevant source files (markdown, JSON, JS, HTML, CSS) to replace the old project name.
 ```powershell
-Get-ChildItem -Recurse -Include *.md, *.json, *.js, *.html, *.css |
+Get-ChildItem -Recurse -Include *.md,*.json,*.js,*.html,*.css |
     ForEach-Object {
-        (Get-Content $_.FullName) -replace 'ChatIASave', 'IAChatExporter' |
-            Set-Content $_.FullName
+        # Leer los bytes del archivo tal cual están codificados
+        $bytes = [System.IO.File]::ReadAllBytes($_.FullName)
+        # Intentar detectar la codificación original (fallback a UTF8 sin BOM)
+        $encoding = [System.Text.Encoding]::UTF8
+        try {
+            $encoding = [System.Text.Encoding]::GetEncoding([System.Text.Encoding]::Default.CodePage)
+        } catch {}
+        # Convertir a texto usando esa codificación
+        $content = $encoding.GetString($bytes)
+        # Reemplazar todas las coincidencias
+        $updated = $content -replace 'ChatIASave', 'IAChatExporter'
+        # Obtener los bytes con la misma codificación y sobrescribir
+        $newBytes = $encoding.GetBytes($updated)
+        [System.IO.File]::WriteAllBytes($_.FullName, $newBytes)
     }
 ```
 - Verify the changes manually if you prefer.
@@ -60,11 +72,11 @@ Replace `<YOUR_USERNAME>` with your GitHub handle.
 ---
 
 # ✅ Checklist
-- [ ] Navigate to parent directory
-- [ ] Rename folder to `IAChatExporter`
-- [ ] `cd` into the new folder
-- [ ] Replace all occurrences of `ChatIASave` with `IAChatExporter`
-- [ ] Run `git status` and confirm modifications
+- [x] Navigate to parent directory
+- [x] Rename folder to `IAChatExporter`
+- [x] `cd` into the new folder
+- [x] Replace all occurrences of `ChatIASave` with `IAChatExporter`
+- [x] Run `git status` and confirm modifications
 - [ ] Commit the changes
 - [ ] (Optional) Update remote URL on GitHub
 - [ ] Test the extension locally

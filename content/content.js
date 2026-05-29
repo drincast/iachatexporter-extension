@@ -18,13 +18,13 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       // 1. Detección de la plataforma y asignación de su parser correspondiente.
       if (hostname.includes('gemini.google.com')) {
         platform = 'Gemini';
-        parser = window.ChatIASaveGeminiParser;
+        parser = window.IAChatExporterGeminiParser;
       } else if (hostname.includes('claude.ai')) {
         platform = 'Claude';
-        parser = window.ChatIASaveClaudeParser;
+        parser = window.IAChatExporterClaudeParser;
       } else if (hostname.includes('chatgpt.com') || hostname.includes('chat.openai.com')) {
         platform = 'ChatGPT';
-        parser = window.ChatIASaveChatGPTParser;
+        parser = window.IAChatExporterChatGPTParser;
       }
 
       // Si no hay parser inyectado o soportado para esta pestaña, respondemos con error.
@@ -41,14 +41,14 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       }
 
       // 3. Normalización al modelo de datos común del plugin.
-      const normalizedChat = window.ChatIASaveParser.normalizeChat(
+      const normalizedChat = window.IAChatExporterParser.normalizeChat(
         rawChatData.title,
         platform,
         rawChatData.messages
       );
 
       // 4. Conversión a texto Markdown con Frontmatter YAML.
-      const markdownContent = window.ChatIASaveExporter.exportToMarkdown(
+      const markdownContent = window.IAChatExporterExporter.exportToMarkdown(
         normalizedChat,
         request.tags || []
       );
@@ -57,7 +57,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       // Se genera un nombre en kebab-case limpio para mantener el orden local.
       const todayStr = normalizedChat.date;
       const fileSlug = slugify(normalizedChat.title);
-      const filename = `chatiasave-${platform.toLowerCase()}-${fileSlug}-${todayStr}.md`;
+      const filename = `IAChatExporter-${platform.toLowerCase()}-${fileSlug}-${todayStr}.md`;
 
       // 6. Generación del stream de datos de descarga (Data URL).
       // Se codifica en base64 para evitar problemas de codificación de caracteres especiales (tildes, emojis) en la descarga.

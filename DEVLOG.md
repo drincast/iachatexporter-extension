@@ -1,4 +1,4 @@
-# DEVLOG - ChatIASave
+# DEVLOG - IAChatExporter
 
 Registro diario de desarrollo, decisiones tomadas y progreso.
 

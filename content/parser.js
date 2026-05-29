@@ -8,7 +8,7 @@
 
 // Se expone en el contexto global window para que el orquestador principal (content.js)
 // pueda unificar el formato de los chats sin importar el LLM de origen.
-window.ChatIASaveParser = {
+window.IAChatExporterParser = {
   
   /**
    * Normaliza los datos crudos extraídos de la interfaz del DOM en una estructura estándar.

@@ -1,4 +1,4 @@
-# ROADMAP - ChatIASave
+# ROADMAP - IAChatExporter
 
 Plan general de desarrollo y progreso del proyecto.
 

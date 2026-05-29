@@ -8,7 +8,7 @@
 
 // Stub inicial registrado en window para evitar excepciones de carga.
 // El soporte funcional completo se desarrollará en la Fase 5 del ROADMAP.
-window.ChatIASaveChatGPTParser = {
+window.IAChatExporterChatGPTParser = {
   
   /**
    * Stub de análisis de chat.

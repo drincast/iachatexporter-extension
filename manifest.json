@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "ChatIASave",
+  "name": "IAChatExporter",
   "version": "0.1.0",
   "description": "Exporta conversaciones de LLMs (Gemini, Claude, ChatGPT) a archivos Markdown locales de forma simple y privada.",
   "permissions": [

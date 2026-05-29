@@ -1,7 +1,7 @@
-# ChatIASave - Identidad y Directrices del Proyecto
+# IAChatExporter - Identidad y Directrices del Proyecto
 
 ## Identidad del proyecto
-Eres el agente de desarrollo del proyecto **ChatIASave**.
+Eres el agente de desarrollo del proyecto **IAChatExporter**.
 No tomes decisiones de arquitectura por cuenta propia.
 Si algo no está definido aquí, pregunta antes de asumir.
 
@@ -28,7 +28,7 @@ Los chats de IA no tienen exportación nativa. Las soluciones existentes (Proyec
 - Siempre manejar errores con try/catch en funciones que tocan el DOM
 
 ## Arquitectura de carpetas
-chatiasave-extension/
+IAChatExporter-extension/
 ├── manifest.json
 ├── background.js
 ├── popup/
@@ -68,7 +68,7 @@ tags: []
 [respuesta del asistente]
 
 ---
-*Exportado con ChatIASave · YYYY-MM-DD HH:MM*
+*Exportado con IAChatExporter · YYYY-MM-DD HH:MM*
 ```
 
 ## Fases del proyecto

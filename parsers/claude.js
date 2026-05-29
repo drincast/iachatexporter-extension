@@ -8,7 +8,7 @@
 
 // Stub inicial registrado en window para evitar excepciones de carga.
 // El soporte funcional completo se desarrollará en la Fase 4 del ROADMAP.
-window.ChatIASaveClaudeParser = {
+window.IAChatExporterClaudeParser = {
   
   /**
    * Stub de análisis de chat.

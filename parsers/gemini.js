@@ -7,7 +7,7 @@
  */
 
 // Se registra en el objeto global window para que content.js pueda invocarlo de forma dinámica.
-window.ChatIASaveGeminiParser = {
+window.IAChatExporterGeminiParser = {
   
   /**
    * Extrae la conversación y el título directamente del DOM de Gemini.

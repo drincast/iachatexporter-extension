@@ -8,7 +8,7 @@
 
 // Se expone en el contexto global window para que content.js pueda invocarlo
 // tras recolectar los datos del chat en la pestaña activa.
-window.ChatIASaveExporter = {
+window.IAChatExporterExporter = {
   
   /**
    * Transforma el objeto unificado de chat a un archivo de texto Markdown estructurado.
@@ -49,7 +49,7 @@ window.ChatIASaveExporter = {
       const minutes = String(now.getMinutes()).padStart(2, '0');
       const formattedTime = `${chatData.date} ${hours}:${minutes}`;
       
-      markdown += `*Exportado con ChatIASave · ${formattedTime}*\n`;
+      markdown += `*Exportado con IAChatExporter · ${formattedTime}*\n`;
 
       // Se realiza una limpieza de saltos de línea sobrantes acumulados en el procesamiento recursivo.
       return markdown.replace(/\n{3,}/g, '\n\n');
