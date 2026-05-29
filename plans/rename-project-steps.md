@@ -61,7 +61,7 @@ git commit -m "Rename project: chatiasave‑extension → IAChatExporter (folder
 
 ## 7️⃣ (Optional) Update remote URL after creating the GitHub repo
 ```powershell
-git remote set-url origin https://github.com/<YOUR_USERNAME>/IAChatExporter.git
+git remote set-url origin https://github.com/drincast/iachatexporter-extension.git
 ```
 Replace `<YOUR_USERNAME>` with your GitHub handle.
 
@@ -77,9 +77,9 @@ Replace `<YOUR_USERNAME>` with your GitHub handle.
 - [x] `cd` into the new folder
 - [x] Replace all occurrences of `ChatIASave` with `IAChatExporter`
 - [x] Run `git status` and confirm modifications
-- [ ] Commit the changes
-- [ ] (Optional) Update remote URL on GitHub
-- [ ] Test the extension locally
+- [x] Commit the changes
+- [x] (Optional) Update remote URL on GitHub
+- [x] Test the extension locally
 - [ ] Close editor and resume later
 
 *File created in `plans/rename-project-steps.md`*
