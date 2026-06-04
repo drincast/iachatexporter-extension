@@ -24,7 +24,7 @@
  */
 
 // Listener para recibir los mensajes del popup de la extensión.
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+browser.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.action === 'exportChat') {
     try {
       const hostname = window.location.hostname;
@@ -81,14 +81,14 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       const dataUrl = `data:text/markdown;charset=utf-8;base64,${base64Content}`;
 
       // 7. Envío al Service Worker (background.js) para ejecutar la descarga física.
-      chrome.runtime.sendMessage({
+      browser.runtime.sendMessage({
         action: 'downloadFile',
         url: dataUrl,
         filename: filename
       }, (downloadResponse) => {
-        if (chrome.runtime.lastError) {
-          console.error('Error de mensajería en la descarga:', chrome.runtime.lastError);
-          sendResponse({ success: false, error: chrome.runtime.lastError.message });
+        if (browser.runtime.lastError) {
+          console.error('Error de mensajería en la descarga:', browser.runtime.lastError);
+          sendResponse({ success: false, error: browser.runtime.lastError.message });
         } else if (downloadResponse && downloadResponse.success) {
           sendResponse({ success: true });
         } else {

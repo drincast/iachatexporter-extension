@@ -23,23 +23,23 @@
  */
 
 // Escucha mensajes enviados desde el content script o el popup para realizar tareas en segundo plano.
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+browser.runtime.onMessage.addListener((request, sender, sendResponse) => {
   // Se procesa la solicitud de descarga de archivo Markdown.
   // Se requiere que la descarga se realice aquí en el background service worker porque las
   // páginas de contenido de los LLMs tienen políticas de seguridad CSP estrictas que bloquean
   // la creación de URLs temporales (Blob URLs) o la simulación de clics de descarga.
   if (request.action === 'downloadFile') {
     try {
-      chrome.downloads.download({
+      browser.downloads.download({
         url: request.url,
         filename: request.filename,
         saveAs: true // Permitimos al usuario elegir la ubicación y nombre final para mayor control.
       }, (downloadId) => {
         // Se manejan los posibles errores al intentar invocar la API de descargas de Chrome.
-        if (chrome.runtime.lastError) {
+        if (browser.runtime.lastError) {
           sendResponse({
             success: false,
-            error: chrome.runtime.lastError.message
+            error: browser.runtime.lastError.message
           });
         } else {
           sendResponse({

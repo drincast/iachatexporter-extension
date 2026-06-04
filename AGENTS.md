@@ -27,6 +27,10 @@ Los chats de IA no tienen exportación nativa. Las soluciones existentes (Proyec
 - Una función = una responsabilidad (funciones cortas y específicas)
 - Siempre manejar errores con try/catch en funciones que tocan el DOM
 
+## Reglas a seguir
+- Siempre traba en la rama dev u otra rama, nunca en la principal 'main'.
+
+
 ## Arquitectura de carpetas
 IAChatExporter-extension/
 ├── manifest.json

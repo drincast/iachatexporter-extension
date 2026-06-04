@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
    */
   function checkCurrentTab() {
     try {
-      chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+      browser.tabs.query({ active: true, currentWindow: true }, (tabs) => {
         if (!tabs || tabs.length === 0) return;
         
         const activeTab = tabs[0];
@@ -110,19 +110,19 @@ document.addEventListener('DOMContentLoaded', () => {
         .filter(t => t.length > 0);
 
       // Enviamos el mensaje a la pestaña activa para iniciar el parseo en la página web.
-      chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+      browser.tabs.query({ active: true, currentWindow: true }, (tabs) => {
         if (!tabs || tabs.length === 0) {
           resetButton();
           return;
         }
 
-        chrome.tabs.sendMessage(
+        browser.tabs.sendMessage(
           tabs[0].id,
           { action: 'exportChat', tags: tagsArray },
           (response) => {
             // Manejamos la respuesta de la inyección de script de contenido.
-            if (chrome.runtime.lastError) {
-              console.error('Error al comunicarse con el script de contenido:', chrome.runtime.lastError);
+            if (browser.runtime.lastError) {
+              console.error('Error al comunicarse con el script de contenido:', browser.runtime.lastError);
               alert('Error: Asegúrate de estar en una conversación activa y recargar la página del chat si acabas de instalar la extensión.');
               resetButton();
               return;
