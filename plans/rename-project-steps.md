@@ -83,3 +83,4 @@ Replace `<YOUR_USERNAME>` with your GitHub handle.
 - [x] Close editor and resume later
 
 *File created in `plans/rename-project-steps.md`*
+*`temp_update_refs.ps1` now resides in `plans/temp_update_refs.ps1` (temporary, will be removed later)*
