@@ -80,6 +80,6 @@ Replace `<YOUR_USERNAME>` with your GitHub handle.
 - [x] Commit the changes
 - [x] (Optional) Update remote URL on GitHub
 - [x] Test the extension locally
-- [ ] Close editor and resume later
+- [x] Close editor and resume later
 
 *File created in `plans/rename-project-steps.md`*
