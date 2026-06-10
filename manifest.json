@@ -7,8 +7,15 @@
     "activeTab",
     "downloads"
   ],
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "iachatexporter@drincast",
+      "strict_min_version": "109.0"
+    }
+  },
   "background": {
-    "service_worker": "background.js"
+    "service_worker": "background.js",
+    "scripts": ["compat/browser-polyfill.js", "background.js"]
   },
   "action": {
     "default_popup": "popup/popup.html",
@@ -29,6 +36,7 @@
         "https://gemini.google.com/*"
       ],
       "js": [
+        "compat/browser-polyfill.js",
         "parsers/gemini.js",
         "content/parser.js",
         "content/exporter.js",
@@ -40,6 +48,7 @@
         "https://claude.ai/*"
       ],
       "js": [
+        "compat/browser-polyfill.js",
         "parsers/claude.js",
         "content/parser.js",
         "content/exporter.js",
@@ -52,6 +61,7 @@
         "https://chat.openai.com/*"
       ],
       "js": [
+        "compat/browser-polyfill.js",
         "parsers/chatgpt.js",
         "content/parser.js",
         "content/exporter.js",

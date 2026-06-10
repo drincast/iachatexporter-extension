@@ -23,23 +23,46 @@
  */
 
 // Escucha mensajes enviados desde el content script o el popup para realizar tareas en segundo plano.
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+browser.runtime.onMessage.addListener((request, sender, sendResponse) => {
   // Se procesa la solicitud de descarga de archivo Markdown.
   // Se requiere que la descarga se realice aquí en el background service worker porque las
   // páginas de contenido de los LLMs tienen políticas de seguridad CSP estrictas que bloquean
   // la creación de URLs temporales (Blob URLs) o la simulación de clics de descarga.
   if (request.action === 'downloadFile') {
     try {
-      chrome.downloads.download({
-        url: request.url,
+      let downloadUrl = request.url;
+      let isBlob = false;
+
+      // Se usa un Blob local si no viene una URL preparada (Base64).
+      if (!downloadUrl && request.content) {
+        if (typeof URL.createObjectURL === 'function') {
+          // Firefox u otros entornos con soporte DOM (Event Page).
+          // Esto es obligatorio para Firefox, que rechaza descargas desde data: URLs.
+          const blob = new Blob([request.content], { type: 'text/markdown;charset=utf-8' });
+          downloadUrl = URL.createObjectURL(blob);
+          isBlob = true;
+        } else {
+          // Chrome Service Worker: Fallback a Base64 local ya que URL.createObjectURL no existe en Workers.
+          const base64Content = btoa(unescape(encodeURIComponent(request.content)));
+          downloadUrl = `data:text/markdown;charset=utf-8;base64,${base64Content}`;
+        }
+      }
+
+      browser.downloads.download({
+        url: downloadUrl,
         filename: request.filename,
         saveAs: true // Permitimos al usuario elegir la ubicación y nombre final para mayor control.
       }, (downloadId) => {
+        // Se libera el recurso temporal de memoria una vez que el navegador inicia la descarga.
+        if (isBlob) {
+          URL.revokeObjectURL(downloadUrl);
+        }
+
         // Se manejan los posibles errores al intentar invocar la API de descargas de Chrome.
-        if (chrome.runtime.lastError) {
+        if (browser.runtime.lastError) {
           sendResponse({
             success: false,
-            error: chrome.runtime.lastError.message
+            error: browser.runtime.lastError.message
           });
         } else {
           sendResponse({

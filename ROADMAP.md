@@ -16,9 +16,10 @@ Plan general de desarrollo y progreso del proyecto.
   - [x] Desarrollo del exportador a Markdown (`content/exporter.js`)
   - [x] Implementación de la descarga local del archivo `.md`
   - [x] Creación de interfaz básica en el popup (`popup/popup.html`, `popup/popup.js`, `popup/popup.css`)
-- [ ] **Fase 3 — Compatibilidad Firefox (~1 sesión)**
-  - [ ] Revisión de compatibilidad de API de Chrome/Firefox (`browser` vs `chrome`)
-  - [ ] Pruebas y ajustes del manifest para Firefox
+- [x] **Fase 3 — Compatibilidad Firefox (~1 sesión)**
+  - [x] Revisión de compatibilidad de API de Chrome/Firefox (`browser` vs `chrome`)
+  - [x] Pruebas y ajustes del manifest para Firefox
+  - [x] Solución de error en Firefox (Blob URLs) y fallback Base64 en Chrome (Service Worker)
 - [ ] **Fase 4 — Soporte Claude.ai (~2 sesiones)**
   - [ ] Investigación de selectores de DOM para Claude.ai
   - [ ] Desarrollo del parser específico para Claude.ai (`parsers/claude.js`)

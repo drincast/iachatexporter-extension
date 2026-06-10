@@ -27,6 +27,10 @@ Los chats de IA no tienen exportación nativa. Las soluciones existentes (Proyec
 - Una función = una responsabilidad (funciones cortas y específicas)
 - Siempre manejar errores con try/catch en funciones que tocan el DOM
 
+## Reglas a seguir
+- Siempre traba en la rama dev u otra rama, nunca en la principal 'main'.
+
+
 ## Arquitectura de carpetas
 IAChatExporter-extension/
 ├── manifest.json
@@ -74,6 +78,7 @@ tags: []
 ## Fases del proyecto
 - Fase 1 — Estructura base + git ini + parser Gemini    (~3 sesiones)
 - Fase 2 — Exportador y descarga              (~2 sesiones)
+- Fase 2.1 — Refactoring de identidad         (~1 sesión)
 - Fase 3 — Compatibilidad Firefox             (~1 sesión)
 - Fase 4 — Soporte Claude.ai                  (~2 sesiones)
 - Fase 5 — Soporte ChatGPT                    (~2 sesiones)
