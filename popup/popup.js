@@ -30,6 +30,18 @@ document.addEventListener('DOMContentLoaded', () => {
   const statusText = document.getElementById('statusText');
   const tagsInput = document.getElementById('tagsInput');
   const btnExport = document.getElementById('btnExport');
+  const base64Toggle = document.getElementById('base64Toggle');
+  const base64Note = document.getElementById('base64Note');
+
+  // Se detecta si el navegador activo es Firefox para restringir opciones no compatibles.
+  // Firefox tiene políticas estrictas de descarga que prohíben el uso de URLs de tipo data: (Base64).
+  const isFirefox = navigator.userAgent.includes('Firefox/');
+  if (isFirefox) {
+    base64Toggle.disabled = true;
+    base64Note.textContent = 'No disponible en Firefox';
+  } else {
+    base64Note.textContent = 'Solo compatible con Chrome/Chromium';
+  }
 
   // Nombres amigables para los LLM soportados.
   const PLATFORMS = {
@@ -118,7 +130,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         browser.tabs.sendMessage(
           tabs[0].id,
-          { action: 'exportChat', tags: tagsArray },
+          { 
+            action: 'exportChat', 
+            tags: tagsArray,
+            useBase64: base64Toggle.checked
+          },
           (response) => {
             // Manejamos la respuesta de la inyección de script de contenido.
             if (browser.runtime.lastError) {

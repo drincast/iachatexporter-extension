@@ -75,17 +75,23 @@ browser.runtime.onMessage.addListener((request, sender, sendResponse) => {
       const fileSlug = slugify(normalizedChat.title);
       const filename = `IAChatExporter-${platform.toLowerCase()}-${fileSlug}-${todayStr}.md`;
 
-      // 6. Generación del stream de datos de descarga (Data URL).
-      // Se codifica en base64 para evitar problemas de codificación de caracteres especiales (tildes, emojis) en la descarga.
-      const base64Content = btoa(unescape(encodeURIComponent(markdownContent)));
-      const dataUrl = `data:text/markdown;charset=utf-8;base64,${base64Content}`;
+      // 6. Generación del payload de descarga según la configuración seleccionada.
+      const downloadPayload = {
+        action: 'downloadFile',
+        filename: filename
+      };
+
+      if (request.useBase64) {
+        // Se codifica en base64 para evitar problemas de codificación de caracteres especiales (tildes, emojis) en la descarga (solo soportado en Chrome).
+        const base64Content = btoa(unescape(encodeURIComponent(markdownContent)));
+        downloadPayload.url = `data:text/markdown;charset=utf-8;base64,${base64Content}`;
+      } else {
+        // Se pasa el contenido en texto plano para que el service worker cree un Blob local compatible con todos los navegadores (Firefox requiere esto).
+        downloadPayload.content = markdownContent;
+      }
 
       // 7. Envío al Service Worker (background.js) para ejecutar la descarga física.
-      browser.runtime.sendMessage({
-        action: 'downloadFile',
-        url: dataUrl,
-        filename: filename
-      }, (downloadResponse) => {
+      browser.runtime.sendMessage(downloadPayload, (downloadResponse) => {
         if (browser.runtime.lastError) {
           console.error('Error de mensajería en la descarga:', browser.runtime.lastError);
           sendResponse({ success: false, error: browser.runtime.lastError.message });

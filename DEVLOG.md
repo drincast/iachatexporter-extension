@@ -5,6 +5,20 @@ Archivo muestra lo mas actual al inicio
 
 ---
 
+## [2026-06-09] Sesión 3.1 — Solución del error de descarga en Firefox (Blob URLs y Toggle Base64)
+
+### Tareas Realizadas
+- **Corrección de descargas en Firefox**: Implementación de descargas a través de **Blob URLs** locales creados y revocados en `background.js` (los cuales son compatibles con la seguridad estricta de Firefox).
+- **Opción de codificación avanzada**: Añadido toggle "Forzar codificación Base64" en `popup/popup.html` y estilizado de forma premium en `popup/popup.css`.
+- **Detección inteligente de Firefox**: Implementada lógica en `popup/popup.js` que detecta Firefox vía `navigator.userAgent`, deshabilitando el toggle de Base64 e informando al usuario sobre la limitación de forma clara.
+- **Flujo condicional de descargas y Fallback Chromium**: Modificados `content/content.js` y `background.js` para bifurcar y transferir datos. En navegadores Chromium (donde `URL.createObjectURL` no existe por ejecutarse en un Service Worker), se aplica un fallback automático en segundo plano para realizar siempre la descarga en Base64 (`data:` URL), asegurando la compatibilidad universal sin que el usuario deba intervenir.
+
+### Siguientes Pasos
+- **Pruebas manuales**: Verificar en Chrome (Blob y Base64) y en Firefox (solo Blob, validar deshabilitación de Base64).
+- Realizar PR a la rama `main` tras la verificación y cerrar Fase 3.
+
+---
+
 ## [2026-06-04] Sesión 3 — Compatibilidad Firefox (Fase 3)
 
 ### Tareas Realizadas

@@ -21,7 +21,7 @@
     <div class="header">
       <div class="logo-area">
         <span class="logo-emoji">💾</span>
-        <h1 class="title">ChatIA<span class="highlight">Save</span></h1>
+        <h1 class="title">IAChat<span class="highlight">Exporter</span></h1>
       </div>
       <span class="version">v0.1.0</span>
     </div>
@@ -37,6 +37,15 @@
       <div class="form-group">
         <label for="tagsInput" class="form-label">Etiquetas (separadas por comas)</label>
         <input type="text" id="tagsInput" class="form-input" placeholder="ej. programacion, ideas, borrador">
+      </div>
+
+      <!-- Toggle de codificación avanzada -->
+      <div class="form-group toggle-group" id="base64Group">
+        <label class="toggle-label" for="base64Toggle">
+          <input type="checkbox" id="base64Toggle">
+          <span class="toggle-text">Forzar codificación Base64</span>
+        </label>
+        <div class="toggle-note" id="base64Note"></div>
       </div>
 
       <!-- Botón de acción principal con gradiente e interacción -->
