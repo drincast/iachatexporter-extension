@@ -83,3 +83,14 @@ tags: []
 - Fase 4 — Soporte Claude.ai                  (~2 sesiones)
 - Fase 5 — Soporte ChatGPT                    (~2 sesiones)
 - Fase 6 — Pulido final                       (~1 sesión)
+
+## Registro de sesiones de trabajo
+
+Este proyecto usa un sistema de registro para rastrear el tiempo invertido por sesión y el acumulado total.
+
+- Instrucciones completas para el agente: `COWORK.md`
+- Registro de sesiones: `WORKLOG.md`
+- Scripts de automatización: `scripts/worklog.ps1` (pwsh · Windows/Linux/macOS) y `scripts/worklog.sh` (bash + Python 3)
+
+**Al iniciar una sesión:** lee `COWORK.md` y ejecuta el comando de inicio indicado.
+**Al cerrar una sesión:** ejecuta el comando de cierre con un resumen breve de lo realizado.

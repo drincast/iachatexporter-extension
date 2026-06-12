@@ -5,6 +5,25 @@ Archivo muestra lo mas actual al inicio
 
 ---
 
+## [2026-06-12] Sesión 3.2 — Sistema de Registro de Sesiones Colaborativas (COWORK + WORKLOG)
+
+### Tareas Realizadas
+- **`COWORK.md` creado**: Archivo de instrucciones para cualquier agente de IA (Claude Code, GitHub Copilot, Cursor, etc.) con guía de inicio de sesión, cierre y setup en proyectos nuevos. El sistema es agnóstico al agente: cualquier herramienta que lo lea puede ejecutar el registro sin contexto previo del proyecto.
+- **`WORKLOG.md` creado**: Registro de sesiones en orden descendente (más reciente primero) con total acumulado de sesiones y minutos invertidos en el proyecto. Línea de totales localizable por regex para actualizaciones de bajo costo.
+- **`scripts/worklog.ps1`**: Script PowerShell cross-platform (Windows 5.1+, Linux y macOS con pwsh) con comandos `init`, `start` y `end`. Gestiona inserción en orden descendente, cálculo automático de duración y actualización del acumulado.
+- **`scripts/worklog.sh`**: Script Bash con Python 3 como motor para el cierre de sesión, orientado a entornos Linux/macOS sin pwsh instalado. Misma interfaz que el script PowerShell.
+- **`AGENTS.md` actualizado**: Agregada sección `## Registro de sesiones de trabajo` que documenta el sistema y referencia sus archivos.
+
+### Decisiones de Arquitectura y Diseño
+- Los scripts evitan caracteres unicode literales en el código fuente; PowerShell 5.1 no lee UTF-8 sin BOM, por lo que se definen `$DASH = [char]0x2014` y `$DOT = [char]0x00B7` en lugar de los literales `—` y `·`.
+- El sistema es **replicable en cualquier proyecto**: `COWORK.md` incluye una sección de setup que permite al agente inicializarlo copiando tres archivos (`COWORK.md`, `scripts/worklog.ps1`, `scripts/worklog.sh`) y ejecutando `init`.
+- Se eligió script sobre lectura/escritura directa por el agente para mantener el costo de tokens constante independientemente del tamaño del historial de sesiones.
+
+### Siguientes Pasos
+- **Ejecutar Fase 4**: Iniciar la integración para los otros CHATs
+
+---
+
 ## [2026-06-09] Sesión 3.1 — Solución del error de descarga en Firefox (Blob URLs y Toggle Base64)
 
 ### Tareas Realizadas
