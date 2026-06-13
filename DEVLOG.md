@@ -24,6 +24,23 @@ Archivo muestra lo mas actual al inicio
 
 ---
 
+## [2026-06-12] Sesión 4 — Soporte Claude.ai y Optimización de Codificación/DOM (Fase 4)
+
+### Tareas Realizadas
+- **Desarrollo del Parser de Claude**: Implementación de `parsers/claude.js` con selectores para extraer secuencialmente mensajes y el título de las conversaciones de `claude.ai`.
+- **Corrección de Mojibake (Caracteres Chinos) en Windows**: Añadido el marcador BOM UTF-8 (`\uFEFF`) al inicio del Markdown generado en `content/exporter.js`. Esto obliga a los editores de Windows (como el Bloc de Notas) a interpretar el archivo correctamente como UTF-8 en lugar de fallar y decodificar los bytes UTF-8 de los emojis/acentos como caracteres en GBK/ANSI.
+- **Evitado de Textos Duplicados**: Optimizado `convertNodeToMarkdown` en `content/exporter.js` para ignorar nodos del DOM ocultos (`display: none`, `hidden`, `aria-hidden="true"`, `.sr-only`). Esto evita duplicar textos diseñados exclusivamente para lectores de pantalla o interfaces de herramientas (como "Web buscada, visualizó un archivo").
+
+### Inconsistencias Detectadas
+- **Imágenes no indicadas**: El exportador no incluye ninguna indicación o placeholder cuando hay imágenes adjuntas en los mensajes.
+- **Mensajes/Contenido incompleto**: Se detectaron secciones de la conversación que no se copian correctamente al archivo Markdown final.
+
+### Siguientes Pasos
+- Iniciar la Fase 5: Soporte para ChatGPT.
+- Desarrollar la nueva Fase 6 para solucionar las inconsistencias de copia e imágenes en los chats.
+
+---
+
 ## [2026-06-09] Sesión 3.1 — Solución del error de descarga en Firefox (Blob URLs y Toggle Base64)
 
 ### Tareas Realizadas

@@ -20,13 +20,16 @@ Plan general de desarrollo y progreso del proyecto.
   - [x] Revisión de compatibilidad de API de Chrome/Firefox (`browser` vs `chrome`)
   - [x] Pruebas y ajustes del manifest para Firefox
   - [x] Solución de error en Firefox (Blob URLs) y fallback Base64 en Chrome (Service Worker)
-- [ ] **Fase 4 — Soporte Claude.ai (~2 sesiones)**
-  - [ ] Investigación de selectores de DOM para Claude.ai
-  - [ ] Desarrollo del parser específico para Claude.ai (`parsers/claude.js`)
+- [x] **Fase 4 — Soporte Claude.ai (~2 sesiones)**
+  - [x] Investigación de selectores de DOM para Claude.ai
+  - [x] Desarrollo del parser específico para Claude.ai (`parsers/claude.js`)
 - [ ] **Fase 5 — Soporte ChatGPT (~2 sesiones)**
   - [ ] Investigación de selectores de DOM para ChatGPT
   - [ ] Desarrollo del parser específico para ChatGPT (`parsers/chatgpt.js`)
-- [ ] **Fase 6 — Pulido final (~1 sesión)**
+- [ ] **Fase 6 — Solución de inconsistencias en los chats (~1 sesión)**
+  - [ ] Resolver omisión de partes de la conversación en chats de Claude.ai
+  - [ ] Añadir indicador de presencia de imágenes en exportación de Claude.ai
+- [ ] **Fase 7 — Pulido final (~1 sesión)**
   - [ ] Optimización de selectores y control de errores
   - [ ] Diseño final de iconos y UI del popup
   - [ ] Pruebas de extremo a extremo y preparación para publicación

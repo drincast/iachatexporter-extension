@@ -20,9 +20,8 @@ window.IAChatExporterExporter = {
    */
   exportToMarkdown(chatData, tags = []) {
     try {
-      // 1. Generación del bloque Frontmatter YAML.
-      // Se requiere el formato específico con comillas escapadas para evitar que títulos con caracteres especiales corrompan el YAML.
-      let markdown = '---\n';
+      // 1. Generación del bloque Frontmatter YAML con BOM para forzar codificación UTF-8 en editores de Windows.
+      let markdown = '\uFEFF---\n';
       markdown += `title: "${chatData.title.replace(/"/g, '\\"')}"\n`;
       markdown += `date: ${chatData.date}\n`;
       markdown += `source: ${chatData.source}\n`;
@@ -77,6 +76,15 @@ function convertNodeToMarkdown(node) {
   
   // Ignorar nodos que no sean elementos (como comentarios).
   if (node.nodeType !== Node.ELEMENT_NODE) {
+    return '';
+  }
+
+  // Ignorar elementos ocultos o destinados únicamente a lectores de pantalla para evitar duplicar textos.
+  const classes = Array.from(node.classList || []);
+  if (classes.includes('sr-only') || 
+      classes.includes('hidden') || 
+      node.getAttribute('aria-hidden') === 'true' ||
+      (node.style && node.style.display === 'none')) {
     return '';
   }
 
