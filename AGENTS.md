@@ -28,7 +28,8 @@ Los chats de IA no tienen exportación nativa. Las soluciones existentes (Proyec
 - Siempre manejar errores con try/catch en funciones que tocan el DOM
 
 ## Reglas a seguir
-- Siempre traba en la rama dev u otra rama, nunca en la principal 'main'.
+- Siempre trabaja en la rama dev u otra rama, nunca en la principal 'main'.
+- Siempre que crees un plan para una fase u otro objetivo, agregalo a la carpeta plan con un nombre descriptivo del plan
 
 
 ## Arquitectura de carpetas

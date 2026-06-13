@@ -5,6 +5,38 @@ Archivo muestra lo mas actual al inicio
 
 ---
 
+## [2026-06-13] Sesión 5 — Soporte ChatGPT (Fase 5)
+
+### Tareas Realizadas
+- **Desarrollo del Parser de ChatGPT**: Implementación de `parsers/chatgpt.js` reemplazando el stub. Extrae mensajes vía el atributo `[data-message-author-role]` (selector estable de OpenAI), mapeando `user` → `'user'` y `assistant` → `'ai'`. El nodo de contenido apunta a `.markdown`/`.prose` (asistente) o `.whitespace-pre-wrap` (usuario) para excluir la botonera de copiar/feedback/regenerar.
+- **Extracción de título**: item activo del sidebar (`nav a[aria-current="page"]` y fallbacks) con fallback a `document.title` limpiando `ChatGPT`. Default `Conversación de ChatGPT`.
+- **Plan de fase**: creación de `plans/implementation_plan_fase5_chatgpt.md` con la misma estructura que el plan de la Fase 4.
+- **Sin cambios en infraestructura**: `content/content.js` ya detectaba los hostnames de ChatGPT y `manifest.json` ya inyectaba el parser, por lo que solo se modificó `parsers/chatgpt.js`.
+
+### Decisiones de Arquitectura y Diseño
+- Se priorizó `data-message-author-role` sobre las clases CSS dinámicas por ser más resistente a los cambios frecuentes de UI de OpenAI.
+
+### Verificación Realizada
+- Prueba manual exitosa en un navegador **Chromium**, sobre un chat de **solo texto**. Exportación correcta.
+
+### Pendiente de Validación
+- Pruebas en **Firefox**.
+- Chats con contenido enriquecido: bloques de código, listas, tablas.
+- Manejo de imágenes y adjuntos (relacionado con la Fase 6).
+
+### Corrección de Bug en Scripts WORKLOG
+- **Bug detectado**: el comando `end` de `scripts/worklog.ps1` y `scripts/worklog.sh` calculaba mal la duración. Al buscar la sesión abierta, el escaneo interno usaba una ventana fija de 10 líneas que se desbordaba al siguiente bloque `## Session` y sobrescribía el `Start` con el de la sesión anterior (más antigua). Síntoma: una sesión de ~23 min registró 796 min (13h 16min) tomando el `Start` del día previo.
+- **Solución aplicada**: añadir un `break` al detectar otro encabezado `## Session`, confinando el escaneo al bloque actual. Cambio de una línea en cada script.
+- **Validación**: probado con un `WORKLOG.md` temporal (escenario sesión abierta + sesión antigua); la duración se calculó correctamente desde el `Start` de la sesión abierta.
+- **Plan**: `plans/fix_worklog_duration_scan.md`.
+- **Datos corregidos**: se recalcularon manualmente la duración de la sesión de hoy y la línea `Total` de `WORKLOG.md`; el contador de sesiones también estaba inflado (decía 6 con solo 3 bloques reales) por corridas previas con el bug.
+
+### Siguientes Pasos
+- Completar las pruebas de validación más completas de la Fase 5.
+- Abordar la Fase 6 (inconsistencias de copia e imágenes en los chats).
+
+---
+
 ## [2026-06-12] Sesión 4 — Soporte Claude.ai y Optimización de Codificación/DOM (Fase 4)
 
 ### Tareas Realizadas

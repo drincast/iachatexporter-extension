@@ -99,6 +99,9 @@ while i < len(lines):
     if re.match(r"^## Session .+ \| drincast", lines[i]):
         l_start = None; l_end = l_dur = l_sum = -1; found = False
         for j in range(i + 1, min(i + 10, len(lines))):
+            # Detener el escaneo al llegar al siguiente bloque de sesion para no leer su Start.
+            if re.match(r"^## Session .+ \| drincast", lines[j]):
+                break
             m = re.match(r"^- \*\*Start:\*\* (\d{4}-\d{2}-\d{2} \d{2}:\d{2})", lines[j])
             if m:
                 l_start = datetime.strptime(m.group(1), "%Y-%m-%d %H:%M")

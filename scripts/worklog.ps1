@@ -113,6 +113,8 @@ switch ($Command.ToLower()) {
                 $lStart = $null; $lEnd = -1; $lDur = -1; $lSum = -1; $open = $false
                 $limit  = [Math]::Min($i + 10, $lines.Count)
                 for ($j = $i + 1; $j -lt $limit; $j++) {
+                    # Detener el escaneo al llegar al siguiente bloque de sesion para no leer su Start.
+                    if ($lines[$j] -match '^## Session .+ \| drincast') { break }
                     if ($lines[$j] -match '^- \*\*Start:\*\* (\d{4}-\d{2}-\d{2} \d{2}:\d{2})') {
                         $lStart = [DateTime]::ParseExact(
                             $Matches[1], "yyyy-MM-dd HH:mm",

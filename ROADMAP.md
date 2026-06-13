@@ -24,8 +24,9 @@ Plan general de desarrollo y progreso del proyecto.
   - [x] Investigación de selectores de DOM para Claude.ai
   - [x] Desarrollo del parser específico para Claude.ai (`parsers/claude.js`)
 - [ ] **Fase 5 — Soporte ChatGPT (~2 sesiones)**
-  - [ ] Investigación de selectores de DOM para ChatGPT
-  - [ ] Desarrollo del parser específico para ChatGPT (`parsers/chatgpt.js`)
+  - [x] Investigación de selectores de DOM para ChatGPT
+  - [x] Desarrollo del parser específico para ChatGPT (`parsers/chatgpt.js`)
+  - [ ] Pruebas de validación más completas (Firefox, chats con código/listas/tablas, imágenes y adjuntos)
 - [ ] **Fase 6 — Solución de inconsistencias en los chats (~1 sesión)**
   - [ ] Resolver omisión de partes de la conversación en chats de Claude.ai
   - [ ] Añadir indicador de presencia de imágenes en exportación de Claude.ai
